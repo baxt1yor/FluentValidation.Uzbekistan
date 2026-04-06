@@ -1,0 +1,43 @@
+name: Publish NuGet Package
+
+on:
+  push:
+    branches: [ main ] # Faqat main branchga push bo'lganda ishlaydi
+  workflow_dispatch: # Manuel (qo'lda) ishga tushirish imkoniyati
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      # .NET SDK-larni o'rnatish (Sizga kerakli barcha versiyalar)
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            8.0.x
+            9.0.x
+            10.0.x
+      
+      # Loyihani qayta tiklash (Restore)
+      - name: Restore dependencies
+        run: dotnet restore
+      
+      # Build qilish (Release rejimida)
+      - name: Build
+        run: dotnet build -c Release --no-restore
+      
+      # NuGet paketini yaratish (Pack)
+      # --no-build bayrog'i yuqorida build qilingan DLL-lardan foydalanishni ta'minlaydi
+      - name: Pack
+        run: dotnet pack -c Release --no-build -o ./dist
+      
+      # NuGet.org saytiga push qilish
+      - name: Push to NuGet
+        run: |
+          dotnet nuget push ./dist/*.nupkg \
+            --api-key ${{ secrets.NUGET_API_KEY }} \
+            --source https://api.nuget.org/v3/index.json \
+            --skip-duplicate
