@@ -25,6 +25,10 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
       
+      # TEST BOSQICHI
+      - name: Run Tests
+        run: dotnet test --no-restore --verbosity normal
+      
       # Build qilish (Release rejimida)
       - name: Build
         run: dotnet build -c Release --no-restore
