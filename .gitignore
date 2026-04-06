@@ -370,3 +370,6 @@ FodyWeavers.xsd
 
 *.yml
 /.gitlab-ci.yml
+
+!.github/workflows/*.yml
+!.github/workflows/*.yaml
