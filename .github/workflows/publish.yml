@@ -31,7 +31,7 @@ jobs:
         
       # TEST BOSQICHI
       - name: Run Tests
-        run: dotnet test --no-build
+        run: dotnet test --no-restore --verbosity normal
       
       # NuGet paketini yaratish (Pack)
       # --no-build bayrog'i yuqorida build qilingan DLL-lardan foydalanishni ta'minlaydi
