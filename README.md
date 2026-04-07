@@ -87,10 +87,3 @@ This project is licensed under the MIT License.
 ## ⭐ Support
 
 If you find this project useful, please consider giving it a star ⭐
-
----
-
-If you want, I can next:
-- add **real PINFL validation implementation**
-- generate **unit tests**
-- or improve README with badges (NuGet, build status, etc.)
