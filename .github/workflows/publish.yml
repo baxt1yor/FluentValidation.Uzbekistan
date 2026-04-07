@@ -24,14 +24,14 @@ jobs:
       # Loyihani qayta tiklash (Restore)
       - name: Restore dependencies
         run: dotnet restore
-      
-      # TEST BOSQICHI
-      - name: Run Tests
-        run: dotnet test --no-restore --verbosity normal
-      
+        
       # Build qilish (Release rejimida)
       - name: Build
         run: dotnet build -c Release --no-restore
+        
+      # TEST BOSQICHI
+      - name: Run Tests
+        run: dotnet test --no-build
       
       # NuGet paketini yaratish (Pack)
       # --no-build bayrog'i yuqorida build qilingan DLL-lardan foydalanishni ta'minlaydi
@@ -40,8 +40,10 @@ jobs:
       
       # NuGet.org saytiga push qilish
       - name: Push to NuGet
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
         run: |
           dotnet nuget push ./dist/*.nupkg \
-            --api-key ${{ secrets.NUGET_API_KEY }} \
+            --api-key $NUGET_API_KEY \
             --source https://api.nuget.org/v3/index.json \
             --skip-duplicate
