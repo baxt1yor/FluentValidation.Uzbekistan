@@ -2,7 +2,7 @@ using Uzbekistan.Pinfl.FluentValidation.Constants;
 
 namespace Uzbekistan.Pinfl.FluentValidation.Validators;
 
-public static class PinflValidator
+internal static class PinflValidator
 {
     public static bool IsValid(string pinfl, out string? errorMessage)
     {
